@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "398714752391",
+    "project_id": "prehranko-148d6",
+    "storage_bucket": "prehranko-148d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398714752391:android:9791eb6b45f37463829722",
+        "android_client_info": {
+          "package_name": "com.example.prehranko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398714752391-sg0m77jk80s40ncgfdqv9q49u3lh24pj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdaMmH3kBpfstoVAY4PUbZwWV6AWN5wZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398714752391-sg0m77jk80s40ncgfdqv9q49u3lh24pj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
