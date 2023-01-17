@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:prehranko/home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,8 +9,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  late String _name, _age, _height, _weight;
+  late String _name;
+  late num _age, _height, _weight;
   bool _gainLose = false;
+
+  num calculateCalories() {
+    num calories = (10 * _weight) + (6.25 * _height) + (5 * _age) + 305;
+    return calories.floor();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +52,17 @@ class _LoginPageState extends State<LoginPage> {
             TextFormField(
               decoration: InputDecoration(labelText: "Age"),
               validator: (input) => input!.trim().isEmpty ? "Please enter a valid age" : null,
-              onSaved: (input) => _age = input!,
+              onSaved: (input) => _age = num.parse(input!),
             ),
             TextFormField(
               decoration: InputDecoration(labelText: "Height"),
               validator: (input) => input!.trim().isEmpty ? "Please enter a valid height" : null,
-              onSaved: (input) => _height = input!,
+              onSaved: (input) => _height = num.parse(input!),
             ),
             TextFormField(
               decoration: InputDecoration(labelText: "Weight"),
               validator: (input) => input!.trim().isEmpty ? "Please enter a valid weight" : null,
-              onSaved: (input) => _weight = input!,
+              onSaved: (input) => _weight = num.parse(input!),
             ),
             SizedBox(height: 10),
             Row(
@@ -95,8 +100,14 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      num _calories = 0;
       
       final docUser = FirebaseFirestore.instance.collection('users').doc('my-id');
+      if (_gainLose == false) {
+        _calories = calculateCalories() + 300;
+      } else {
+        _calories = calculateCalories() + 500;
+      }
       
       final json = {
         'name': _name,
@@ -104,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
         'height': _height,
         'weight': _weight,
         'boolWeight': _gainLose,
+        'calories': _calories,
       };
 
       await docUser.set(json);
